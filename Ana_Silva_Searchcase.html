@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ana Silva — Senior Product Case Study</title>
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #111111;
+      --muted: #6b7280;
+      --soft: #f4f5f7;
+      --line: #e5e7eb;
+      --accent: #0a84ff;
+      --accent-soft: #eaf4ff;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-snap-type: y mandatory; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    .slide {
+      min-height: 100vh;
+      padding: 72px 9vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      scroll-snap-align: start;
+      border-bottom: 1px solid var(--line);
+    }
+    .eyebrow {
+      color: var(--accent);
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 22px;
+    }
+    h1 {
+      font-size: clamp(56px, 8vw, 104px);
+      line-height: 0.95;
+      letter-spacing: -0.075em;
+      font-weight: 820;
+      margin: 0;
+      max-width: 1120px;
+    }
+    h2 {
+      font-size: clamp(42px, 5.2vw, 76px);
+      line-height: 1;
+      letter-spacing: -0.065em;
+      font-weight: 800;
+      margin: 0;
+      max-width: 1100px;
+    }
+    p {
+      font-size: clamp(22px, 2vw, 30px);
+      line-height: 1.38;
+      letter-spacing: -0.025em;
+      color: var(--muted);
+      max-width: 980px;
+      margin: 28px 0 0;
+    }
+    .lead {
+      color: var(--text);
+      font-size: clamp(30px, 3.2vw, 48px);
+      line-height: 1.12;
+      letter-spacing: -0.055em;
+      font-weight: 760;
+      max-width: 1080px;
+    }
+    .accent { color: var(--accent); }
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 42px;
+    }
+    .chip {
+      border: 1px solid var(--line);
+      background: var(--soft);
+      padding: 14px 18px;
+      border-radius: 999px;
+      font-size: 18px;
+      font-weight: 650;
+      letter-spacing: -0.02em;
+    }
+    .category-layout {
+      margin-top: 56px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 54px;
+      max-width: 1120px;
+    }
+    .stack { display: grid; gap: 16px; }
+    .box {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 24px 28px;
+      font-size: 24px;
+      font-weight: 760;
+      letter-spacing: -0.035em;
+      background: #fff;
+    }
+    .arrow {
+      font-size: 56px;
+      color: var(--accent);
+      font-weight: 300;
+    }
+    .need {
+      background: var(--accent-soft);
+      border-radius: 28px;
+      padding: 36px;
+    }
+    .need .label-small {
+      font-size: 18px;
+      color: var(--accent);
+      font-weight: 750;
+      margin-bottom: 16px;
+    }
+    .need .text {
+      font-size: clamp(28px, 3vw, 44px);
+      line-height: 1.1;
+      letter-spacing: -0.055em;
+      font-weight: 800;
+    }
+    .two-column {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      margin-top: 54px;
+      max-width: 1120px;
+    }
+    .plain-block h3 {
+      margin: 0 0 16px;
+      font-size: 28px;
+      letter-spacing: -0.035em;
+    }
+    .plain-block ul {
+      margin: 0;
+      padding-left: 22px;
+      color: var(--muted);
+      font-size: 23px;
+      line-height: 1.45;
+      letter-spacing: -0.025em;
+    }
+    .plain-block li { margin-bottom: 12px; }
+    .decision-flow {
+      margin-top: 58px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      gap: 22px;
+      align-items: center;
+      max-width: 1180px;
+    }
+    .decision-item {
+      padding: 30px;
+      border-radius: 28px;
+      background: var(--soft);
+      min-height: 180px;
+    }
+    .decision-item.highlight { background: var(--accent-soft); }
+    .decision-item .title {
+      font-size: 27px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      margin-bottom: 12px;
+    }
+    .decision-item .desc {
+      font-size: 20px;
+      line-height: 1.35;
+      letter-spacing: -0.02em;
+      color: var(--muted);
+    }
+    .questions {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 56px;
+      max-width: 1120px;
+    }
+    .question {
+      border-top: 3px solid var(--accent);
+      padding-top: 22px;
+    }
+    .question .big {
+      font-size: clamp(30px, 3vw, 44px);
+      line-height: 1.04;
+      letter-spacing: -0.055em;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+    .question .sub {
+      color: var(--muted);
+      font-size: 20px;
+      line-height: 1.35;
+    }
+    .funnel { margin-top: 52px; max-width: 720px; }
+    .funnel-row {
+      display: grid;
+      grid-template-columns: 145px 1fr;
+      gap: 28px;
+      align-items: baseline;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .funnel-row:last-child { border-bottom: none; }
+    .num {
+      color: var(--accent);
+      font-size: clamp(46px, 5.5vw, 76px);
+      line-height: 0.9;
+      letter-spacing: -0.07em;
+      font-weight: 850;
+    }
+    .label {
+      color: var(--text);
+      font-size: clamp(24px, 2.7vw, 38px);
+      letter-spacing: -0.045em;
+      font-weight: 730;
+    }
+    .learning-list {
+      margin-top: 54px;
+      display: grid;
+      gap: 22px;
+      max-width: 940px;
+    }
+    .learning {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 20px;
+      align-items: start;
+      font-size: clamp(25px, 2.5vw, 36px);
+      line-height: 1.14;
+      letter-spacing: -0.045em;
+      font-weight: 730;
+    }
+    .check {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: 20px;
+      margin-top: 2px;
+    }
+    .steps {
+      margin-top: 58px;
+      display: grid;
+      gap: 18px;
+      max-width: 900px;
+    }
+    .step {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 24px;
+      align-items: start;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .step-number {
+      color: var(--accent);
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+    .step-title {
+      font-size: clamp(28px, 3vw, 42px);
+      line-height: 1.04;
+      letter-spacing: -0.055em;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .step-desc {
+      font-size: 21px;
+      line-height: 1.35;
+      color: var(--muted);
+      letter-spacing: -0.02em;
+    }
+    .closing { background: linear-gradient(180deg, #ffffff 0%, #f7f8fa 100%); }
+    @media (max-width: 900px) {
+      .slide { padding: 56px 28px; }
+      .category-layout, .two-column, .decision-flow, .questions { grid-template-columns: 1fr; }
+      .arrow { transform: rotate(90deg); justify-self: center; }
+      .funnel-row { grid-template-columns: 1fr; gap: 8px; }
+    }
+    @media print {
+      html { scroll-snap-type: none; }
+      .slide { min-height: 100vh; page-break-after: always; }
+    }
+  </style>
+</head>
+<body>
+
+
+  <section class="slide">
+    <div class="eyebrow">01 · Your Role</div>
+    <h2>Ana Margarida Silva</h2>
+    <p>I'm a Product Manager at Critical TechWorks with experience leading digital product initiatives from discovery through delivery.</p>
+    <p>My work sits at the intersection of customer needs, business objectives, and technology, where I collaborate closely with engineering, design, analytics, and business stakeholders to identify opportunities, define product strategy, and deliver measurable outcomes.</p>
+    <div class="chips">
+      <div class="chip">Customer-centric</div>
+      <div class="chip">Discovery to delivery</div>
+      <div class="chip">Outcome-driven</div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="eyebrow">02 · Your Role</div>
+    <h2>Product Lead for Discovery & Selection at BMW OneShop E-commerce</h2>
+    <p>I owned the opportunity assessment, product strategy, KPI definition, prioritization, and stakeholder alignment for the discovery and selection experience.</p>
+    <p class="lead">My goal was to connect customers with relevant products, independently of how the business organized its catalog.</p>
+  </section>
+
+  <section class="slide">
+    <div class="eyebrow">03 · The Product</div>
+    <h1>OneShop BMW E-commerce</h1>
+    <p class="lead">One ecommerce platform. Three separate discovery experiences.</p>
+    <div class="category-layout">
+      <div class="stack">
+        <div class="box">Digital Products</div>
+        <div class="box">Vehicle Accessories</div>
+        <div class="box">Merchandising</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="need">
+        <div class="label-small">Customer reality</div>
+        <div class="text">“I just bought a car. What else do I need?”</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="eyebrow">04 · The Opportunity</div>
+    <h1>Customers don’t buy categories.</h1>
+    <p class="lead">They buy solutions that fit their ownership journey.</p>
+    <div class="chips">
+      <div class="chip">Discover what exists</div>
+      <div class="chip">Find what is relevant</div>
+      <div class="chip">Choose what fits</div>
+      <div class="chip">Act with confidence</div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="eyebrow">05 · The Problem</div>
+    <h2>The root problem was not catalog size. It was discoverability.</h2>
+    <div class="two-column">
+      <div class="plain-block">
+        <h3>Customer problem</h3>
+        <ul>
+          <li>Discovery was limited to category silos.</li>
+          <li>Relevant products were hidden unless users knew where to look.</li>
+          <li>The experience reflected internal structure, not customer intent.</li>
+        </ul>
+      </div>
+      <div class="plain-block">
+        <h3>Business problem</h3>
+        <ul>
+          <li>Reduced exposure to the full ecosystem.</li>
+          <li>Fewer cross-category journeys.</li>
+          <li>Limited opportunities to create richer baskets.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="eyebrow">06 · The Solution</div>
+    <h2>We chose the smallest experiment capable of validating the hypothesis.</h2>
+    <div class="decision-flow">
+      <div class="decision-item">
+        <div class="title">Navigation redesign</div>
+        <div class="desc">Holistic, but heavy. High investment and longer timeline.</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="decision-item">
+        <div class="title">Cross-sell modules</div>
+        <div class="desc">Useful, but only after a product is already discovered.</div>
+      </div>
+      <div class="arrow">→</div>
+      <div class="decision-item highlight">
+        <div class="title">Unified Search</div>
+        <div class="desc">Fast learning. Cross-category by design. Clear signal of intent.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="eyebrow">07 · The Solution</div>
+    <h1>The first goal was learning.</h1>
+    <div class="questions">
+      <div class="question">
+        <div class="big">Would users use it?</div>
+        <div class="sub">Visibility and adoption.</div>
+      </div>
+      <div class="question">
+        <div class="big">Were results relevant?</div>
+        <div class="sub">Zero-results and click-through rate.</div>
+      </div>
+      <div class="question">
+        <div class="big">Did it show intent?</div>
+        <div class="sub">Add-to-Cart after result click.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="eyebrow">08 · The Solution · Measurable Outcome</div>
+    <h2>Low adoption. High intent.</h2>
+    <div class="funnel">
+      <div class="funnel-row"><div class="num">45%</div><div class="label">of visits saw Search</div></div>
+      <div class="funnel-row"><div class="num">2%</div><div class="label">used Search</div></div>
+      <div class="funnel-row"><div class="num">83%</div><div class="label">received results</div></div>
+      <div class="funnel-row"><div class="num">61%</div><div class="label">clicked at least one result</div></div>
+      <div class="funnel-row"><div class="num">20%</div><div class="label">added to cart after clicking</div></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="eyebrow">09 · The Solution · Learning & Impact</div>
+    <h1>Search wasn’t the outcome.</h1>
+    <p class="lead">Learning was.</p>
+    <div class="learning-list">
+      <div class="learning"><div class="check">✓</div><div>Customers engage with category-agnostic discovery.</div></div>
+      <div class="learning"><div class="check">✓</div><div>Search users show strong purchase intent.</div></div>
+      <div class="learning"><div class="check">✓</div><div>The roadmap shifted from feature delivery to growth optimization.</div></div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="eyebrow">10 · The Solution · What I Made Different</div>
+    <h2>I framed Search as a learning experiment, not a feature launch.</h2>
+    <p>This helped the team start small, validate customer behavior, and create evidence for a broader product direction before investing in larger structural changes.</p>
+    <p>The mindset changed from <span class="accent">“deliver Search”</span> to <span class="accent">“understand how customers discover products across the ecosystem.”</span></p>
+  </section>
+
+  <section class="slide">
+    <div class="eyebrow">11 · The Solution · Next Steps</div>
+    <h1>From Validation to Growth</h1>
+    <div class="steps">
+      <div class="step"><div class="step-number">01</div><div><div class="step-title">Increase adoption</div><div class="step-desc">Improve visibility and introduce contextual entry points across the journey.</div></div></div>
+      <div class="step"><div class="step-number">02</div><div><div class="step-title">Improve relevance</div><div class="step-desc">Reduce zero-results through synonyms, query handling, and ranking improvements.</div></div></div>
+      <div class="step"><div class="step-number">03</div><div><div class="step-title">Create smarter discovery</div><div class="step-desc">Use predictive suggestions and behavioral signals to guide users to relevant products.</div></div></div>
+      <div class="step"><div class="step-number">04</div><div><div class="step-title">Measure business impact</div><div class="step-desc">Understand the relationship between Search, mixed-category carts, and basket composition.</div></div></div>
+    </div>
+  </section>
+
+  <section class="slide closing">
+    <div class="eyebrow">Closing</div>
+    <h1>The most valuable outcome wasn’t launching Search.</h1>
+    <p class="lead">It was validating that customers think in terms of needs rather than categories, and using that insight to shape the future of the ecommerce experience.</p>
+  </section>
+
+</body>
+</html>
